@@ -8,8 +8,10 @@ const SearchScreen = () => {
 
     const [term, setTerm] = useState('');
     const [results, setResults] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const searchAPI = async () => {
+        try{
         const response = await yelp.get('/search', {
             params: {
                 limit: 50,
@@ -17,6 +19,9 @@ const SearchScreen = () => {
                 location: 'san jose'
             }
         });
+        }catch (err) {
+            setErrorMessage('Something went wrong! try again later');
+        }
         setResults(response.data.businesses);
     };
 
@@ -27,7 +32,7 @@ const SearchScreen = () => {
                 onTermChange={setTerm}
                 onTermSubmitted={searchAPI}
             />
-            <Text>Welcome to Search Page</Text>
+            {setErrorMessage ? <Text>{errorMessage}</Text> : null}
             <Text>We have found {results.length} results</Text>
         </View>
     );
