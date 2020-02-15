@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import SearchBar from '../components/SearchBar';
@@ -26,7 +26,11 @@ const SearchScreen = () => {
     };
 
     // Call search API whennthe component is call first
-    // searchAPI('pasta');
+    // searchAPI('pasta'); // NO RIGHT
+
+    useEffect(() =>{
+        searchAPI('pasta');
+    }, []);
 
     return(
         <View>
